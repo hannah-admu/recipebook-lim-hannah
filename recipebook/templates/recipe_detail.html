@@ -1,11 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>{{ recipe.name }}</title>
 </head>
+
+<header>
+    <h1>Recipe Book</h1>
+    <h2>Hi {{ request.user.username }}!</h2>
+    <form action = "{% url 'logout' %}" method = "POST">
+        {% csrf_token %}
+        <button type = "submit">LOG OUT</button>
+    </form>
+</header>
+
 <body>
     <h1>{{ recipe.name }}</h1>
+    <p> Author: {{ recipe.author.profile.name }} </p>
     <h2>Ingredients:</h2>
     <ul>
         {% for recipeingredient in recipe.ingredients.all %}
@@ -13,4 +25,8 @@
         {% endfor %}
     </ul>
 </body>
+
+<footer>Created on: {{ recipe.created_on }}</footer>
+<footer>Updated on: {{ recipe.updated_on }}</footer>
+
 </html>
